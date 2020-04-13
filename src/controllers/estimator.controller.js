@@ -7,7 +7,7 @@
 /* eslint-disable import/extensions, no-console */
 import path from 'path';
 import xml2 from 'xml2js';
-import sf from 'slice-file';
+import fs from 'fs';
 import covid19ImpactEstimator from '../estimator.js';
 /* eslint-disable import/extensions, no-console */
 
@@ -55,13 +55,17 @@ export const estimatorXml = async (req, res, next) => {
  */
 
 export const logs = async (req, res) => {
-  const basePath = global.basedir;
-  const resData = [];
-  const file = sf(path.join(basePath, 'access.log'));
-
-  file.sliceReverse().on('data', (data) => {
-    resData.push(data.toString()); // convert from buffer to string
-  }).on('end', () => {
-    res.type('text/plain').send(resData.join(''));
-  });
+  try {
+    /* eslint-disable no-undef, no-console */
+    const basePath = __basedir;
+    const filepath = path.join(basePath, 'access.log');
+    const logData = [];
+    fs.readFile(filepath, 'utf8', (err, data) => {
+      if (err) throw err;
+      logData.push(data.toString()); //
+    });
+    return res.type('text/plain').send(data);
+  } catch (error) {
+    return next(error);
+  }
 };
