@@ -22,10 +22,9 @@ class LogController {
     try {
       /* eslint-disable no-undef, no-console */
       const filepath = path.join(basedir, 'access.log');
-    const fsData = [];
      fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
-        res.status(200).type('text/plain').send(data.toString);
+        res.status(200).type('text/plain').send(data);
       });
     } catch (error) {
       return next(error);
