@@ -1,7 +1,7 @@
 /**
  * The controller defined below is the estimator
- * controller with only on function (endpoint)
- * which returns estimated data
+ * controller with two functions (endpoints)
+ * which returns estimated data (json and xml)
  *
  */
 /* eslint-disable import/extensions, no-console */

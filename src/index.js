@@ -42,9 +42,6 @@ morgan.token('response-time-ms', function getResponse(req, res) {
 });
 app.use(morgan(':method\t:url\t:status\t:response-time-ms', { stream: accessLogStream }));
 
-//app.use(morgan(':method\t:url\t:status\t:response-time ms', { stream: accessLogStream }));
-
-
 app.post('/api/v1/on-covid-19/', validateBody(schemas.input), estimator);
 app.get('/api/v1/on-covid-19/logs', LogController.logs);
 app.post('/api/v1/on-covid-19/json', validateBody(schemas.input), estimator);
