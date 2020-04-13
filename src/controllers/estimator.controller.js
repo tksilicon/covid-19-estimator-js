@@ -60,11 +60,9 @@ export const logs = async (req, res, next) => {
   /* eslint-enable */
   try {
     /* eslint-disable no-undef, no-console */
-    const basePath = __basedir;
-    const filepath = path.join(basePath, 'access.log');
-
+  
     const resData = [];
-    const file = sf(filepath);
+    const file = sf(path.join(__basedir, 'access.log'));
 
     file.sliceReverse().on('data', (data) => {
       resData.push(data.toString()); // convert from buffer to string
