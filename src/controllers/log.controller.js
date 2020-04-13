@@ -17,17 +17,15 @@ class LogController {
    * @param {*} next
    */
   /* eslint-disable */
-  static async logs(req, res, next) {
-    /* eslint-enable */
+  static async logs(req, res, next) { 
+  /* eslint-enable */
     try {
       /* eslint-disable no-undef, no-console */
       const filepath = path.join(basedir, 'access.log');
-      const fsData = [];
-      fs.readFile(filepath, 'utf8', (err, data) => {
+    const fsData = [];
+     fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
-        fsData.push(data.toString);
-      }).on('close', () => {
-        res.type('text/plain').send(fsData.join(''));
+        res.status(200).type('text/plain').send(data.toString);
       });
     } catch (error) {
       return next(error);
