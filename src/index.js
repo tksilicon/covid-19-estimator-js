@@ -44,10 +44,6 @@ app.post('/api/v1/on-covid-19/xml', validateBody(schemas.input), EstimatorContro
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get('/logs', (req, res) => {
-  res.redirect('/api/v1/on-covid-19/logs');
-});
-
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });

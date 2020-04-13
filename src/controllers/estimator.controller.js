@@ -5,9 +5,9 @@
  *
  */
 /* eslint-disable import/extensions, no-console */
-import fs from 'fs';
 import path from 'path';
 import xml2 from 'xml2js';
+import sf from 'slice-file';
 import covid19ImpactEstimator from '../estimator.js';
 /* eslint-disable import/extensions, no-console */
 
@@ -64,9 +64,13 @@ class EstimatorController {
       const basePath = __basedir;
       const filepath = path.join(basePath, 'access.log');
 
-      fs.readFile(filepath, 'utf8', (err, data) => {
-        if (err) throw err;
-        return res.status(200).type('text/plain').send(data);
+      const resData = [];
+      const file = sf(filepath);
+
+      file.sliceReverse().on('data', (data) => {
+        resData.push(data.toString()); // convert from buffer to human readable
+      }).on('end', () => {
+        res.type('text/plain').send(resData.join(''));
       });
     } catch (error) {
       return next(error);

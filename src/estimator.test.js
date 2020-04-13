@@ -41,7 +41,7 @@ describe('covid-19 estimator js', () => {
   describe('Check output object', () => {
     const output = estimator(input);
 
-    test('Should march the expected object', () => {
+    test('Should match the expected object', () => {
       expect(output).toMatchObject(expected);
     });
 
