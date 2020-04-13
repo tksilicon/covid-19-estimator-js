@@ -21,7 +21,7 @@ import covid19ImpactEstimator from '../estimator.js';
 export const estimator = async (req, res, next) => {
   /* eslint-enable */
   try {
-    const days = await covid19ImpactEstimator(req.body);
+    const days = covid19ImpactEstimator(req.body);
     return res.status(200).json(days);
   } catch (error) {
     return next(error);
@@ -40,7 +40,7 @@ export const estimatorXml = async (req, res, next) => {
     const builder = new xml2.Builder({
       renderOpts: { pretty: true }
     });
-    const xml = await covid19ImpactEstimator(req.body);
+    const xml = covid19ImpactEstimator(req.body);
     return res.status(200).type('application/xml').send(builder.buildObject(xml));
   } catch (error) {
     return next(error);
