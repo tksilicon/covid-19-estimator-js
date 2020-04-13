@@ -5,9 +5,7 @@
  *
  */
 /* eslint-disable import/extensions, no-console */
-import path from 'path';
 import xml2 from 'xml2js';
-import fs from 'fs';
 import covid19ImpactEstimator from '../estimator.js';
 /* eslint-disable import/extensions, no-console */
 
@@ -42,27 +40,6 @@ export const estimatorXml = async (req, res, next) => {
     });
     const xml = covid19ImpactEstimator(req.body);
     return res.status(200).type('application/xml').send(builder.buildObject(xml));
-  } catch (error) {
-    return next(error);
-  }
-};
-
-/**
- * This method outputs COVID-19 logs
- * @param {*} req
- * @param {*} res
- * @param {*} next
- */
-
-export const logs = async (req, res, next) => {
-  try {
-    /* eslint-disable no-undef, no-console */
-    const basePath = __basedir;
-    const filepath = path.join(basePath, 'access.log');
-    const datafs = fs.readFile(filepath, 'utf8', (err) => {
-      if (err) throw err;
-    });
-    return res.type('text/plain').send(datafs);
   } catch (error) {
     return next(error);
   }
