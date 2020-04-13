@@ -54,9 +54,8 @@ export const estimatorXml = async (req, res, next) => {
  * @param {*} next
  */
 /* eslint-disable */
-export const logs = async (req, res, next) => {
-  /* eslint-enable */
-  try {
+export const logs = async (req, res) => {
+ 
     /* eslint-disable no-undef, no-console */
   
     const resData = [];
@@ -67,7 +66,4 @@ export const logs = async (req, res, next) => {
     }).on('end', () => {
       res.type('text/plain').send(resData.join(''));
     });
-  } catch (error) {
-    return next(error);
-  }
 };
