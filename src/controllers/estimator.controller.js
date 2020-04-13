@@ -44,8 +44,7 @@ class EstimatorController {
         renderOpts: { pretty: true }
       });
       const xml = covid19ImpactEstimator(req.body);
-      res.header('Content-Type', 'text/xml');
-      return res.send(builder.buildObject(xml));
+      return res.status(200).type('application/xml').send(builder.buildObject(xml));
     } catch (error) {
       return next(error);
     }
@@ -67,9 +66,7 @@ class EstimatorController {
 
       fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
-
-        res.header('Content-Type', 'text/plain');
-        res.send(data);
+        res.status(200).type('text/plain').send(data);
       });
     } catch (error) {
       return next(error);
