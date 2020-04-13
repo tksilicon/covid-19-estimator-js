@@ -9,7 +9,7 @@ import compression from 'compression';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 /* eslint-disable import/extensions, no-console */
-import EstimatorController from './controllers/estimator.controller.js';
+import { estimator, estimatorXml, logs } from './controllers/estimator.controller.js';
 import { schemas, validateBody } from './validator.js';
 /* eslint-disable import/extensions, no-console */
 
@@ -29,6 +29,7 @@ const __dirname = path.resolve();
 global.__basedir = __dirname;
 /* eslint-disable no-underscore-dangle, no-console */
 
+
 // create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
@@ -36,10 +37,10 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan(':method :url :status :response-time ms', { stream: accessLogStream }));
 
 
-app.post('/api/v1/on-covid-19/', validateBody(schemas.input), EstimatorController.estimator);
-app.get('/api/v1/on-covid-19/logs', EstimatorController.logs);
-app.post('/api/v1/on-covid-19/json', validateBody(schemas.input), EstimatorController.estimator);
-app.post('/api/v1/on-covid-19/xml', validateBody(schemas.input), EstimatorController.estimatorXml);
+app.post('/api/v1/on-covid-19/', validateBody(schemas.input), estimator);
+app.get('/api/v1/on-covid-19/logs', logs);
+app.post('/api/v1/on-covid-19/json', validateBody(schemas.input), estimator);
+app.post('/api/v1/on-covid-19/xml', validateBody(schemas.input), estimatorXml);
 // app.post('/api/v1/on-covid-19/:responseType', EstimatorController.estimator); // for heroku
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
