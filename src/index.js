@@ -31,7 +31,7 @@ global.basedir = __dirname;
 /* eslint-disable no-underscore-dangle, no-console */
 
 if (!fs.existsSync(path.join(__dirname, 'logs/access.log'))) {
-  fs.mkdirSync('./logs');
+  fs.mkdirSync('logs');
 }
 
 // create a write stream (in append mode)
