@@ -39,7 +39,7 @@ app.use(morgan(':method\t:url\t:status\t:response-time ms', { stream: accessLogS
 
 
 app.post('/api/v1/on-covid-19/', validateBody(schemas.input), estimator);
-app.get('/api/v1/on-covid-19/logs', LogController.logs);
+app.get('/api/v1/on-covid-19/logs', logging);
 app.post('/api/v1/on-covid-19/json', validateBody(schemas.input), estimator);
 app.post('/api/v1/on-covid-19/xml', validateBody(schemas.input), estimatorXml);
 // app.post('/api/v1/on-covid-19/:responseType', EstimatorController.estimator); // for heroku
