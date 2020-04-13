@@ -42,7 +42,7 @@ app.post('/api/v1/on-covid-19/', EstimatorController.estimator);
 app.get('/api/v1/on-covid-19/logs', EstimatorController.logs);
 app.post('/api/v1/on-covid-19/json', EstimatorController.estimator);
 app.post('/api/v1/on-covid-19/xml', EstimatorController.estimator);
-app.post('/api/v1/on-covid-19/:responseType', EstimatorController.estimator); // for heroku
+// app.post('/api/v1/on-covid-19/:responseType', EstimatorController.estimator); // for heroku
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
