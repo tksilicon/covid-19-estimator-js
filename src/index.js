@@ -34,8 +34,12 @@ global.basedir = __dirname;
 // create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a+' });
 
+morgan.token('response-time-ms', function getResponse(req, res) {
+  const time = this['response-time'](req, res, 0) < 10 ? `0${this['response-time'](req, res, 0)}ms` : `${this['response-time'](req, res, 0)}ms`;
+  return time;
+});
 // setup the logger
-app.use(morgan(':method :url :status :response-time ms', { stream: accessLogStream }));
+app.use(morgan(':method\t:url\t:status\t:response-time-ms', { stream: accessLogStream }));
 
 
 app.post('/api/v1/on-covid-19/', validateBody(schemas.input), estimator);
