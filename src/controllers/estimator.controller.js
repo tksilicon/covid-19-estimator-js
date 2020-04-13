@@ -54,14 +54,14 @@ export const estimatorXml = async (req, res, next) => {
  * @param {*} next
  */
 
-export const logs = async (req, res, next) => {
-   
+export const logs = async (req, res) => {
+  const basePath = global.basedir;
   const resData = [];
-    const file = sf(path.join(__basedir, 'access.log'));
+  const file = sf(path.join(basePath, 'access.log'));
 
-    file.sliceReverse().on('data', (data) => {
-      resData.push(data.toString()); // convert from buffer to string
-    }).on('end', () => {
-      res.type('text/plain').send(resData.join(''));
-    });
+  file.sliceReverse().on('data', (data) => {
+    resData.push(data.toString()); // convert from buffer to string
+  }).on('end', () => {
+    res.type('text/plain').send(resData.join(''));
+  });
 };

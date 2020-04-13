@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 /* eslint-disable no-underscore-dangle, no-console */
 const __dirname = path.resolve();
-global.__basedir = __dirname;
+global.basedir = __dirname;
 /* eslint-disable no-underscore-dangle, no-console */
 
 
