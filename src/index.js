@@ -12,7 +12,6 @@ import swaggerDocument from './swagger.json';
 import { estimator, estimatorXml } from './controllers/estimator.controller.js';
 import { schemas, validateBody } from './validator.js';
 import LogController from './controllers/log.controller.js';
-import { logging } from './controllers/logging.controller.js';
 /* eslint-disable import/extensions, no-console */
 
 
@@ -42,7 +41,7 @@ app.use(morgan(':method\t:url\t:status\t:response-time ms', { stream: accessLogS
 
 
 app.post('/api/v1/on-covid-19/', validateBody(schemas.input), estimator);
-app.get('/api/v1/on-covid-19/logs', logging);
+app.get('/api/v1/on-covid-19/logs', LogController.logs);
 app.post('/api/v1/on-covid-19/json', validateBody(schemas.input), estimator);
 app.post('/api/v1/on-covid-19/xml', validateBody(schemas.input), estimatorXml);
 // app.post('/api/v1/on-covid-19/:responseType', EstimatorController.estimator); // for heroku

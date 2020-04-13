@@ -17,12 +17,12 @@ class LogController {
    * @param {*} next
    */
   /* eslint-disable */
-  static async logs(req, res, next) { 
-  /* eslint-enable */
+  static async logs(req, res, next) {
+    /* eslint-enable */
     try {
       /* eslint-disable no-undef, no-console */
-      const filepath = path.join(basedir, 'access.log');
-     fs.readFile(filepath, 'utf8', (err, data) => {
+      const filepath = path.join(__dirname, '../db/access.log');
+      fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
         res.status(200).type('text/plain').send(data);
       });
