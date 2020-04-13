@@ -22,9 +22,7 @@ export const estimator = async (req, res, next) => {
   /* eslint-enable */
   try {
     const days = await covid19ImpactEstimator(req.body);
-    return res.status(200).json({
-      days
-    });
+    return res.status(200).json(days);
   } catch (error) {
     return next(error);
   }
