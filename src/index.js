@@ -31,7 +31,6 @@ const __dirname = path.resolve();
 global.basedir = __dirname;
 /* eslint-disable no-underscore-dangle, no-console */
 
-
 // create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a+' });
 
