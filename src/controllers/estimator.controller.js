@@ -68,7 +68,7 @@ class EstimatorController {
       const file = sf(filepath);
 
       file.sliceReverse().on('data', (data) => {
-        resData.push(data.toString()); // convert from buffer to human readable
+        resData.push(data.toString()); // convert from buffer to string
       }).on('end', () => {
         res.type('text/plain').send(resData.join(''));
       });
