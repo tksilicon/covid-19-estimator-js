@@ -26,7 +26,7 @@ class LogController {
 
       fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
-        res.type('text/plain').send(data);
+        res.status(200).type('text/plain').send(data);
       });
     } catch (error) {
       return next(error);
