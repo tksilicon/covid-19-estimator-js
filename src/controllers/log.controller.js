@@ -21,8 +21,7 @@ class LogController {
   /* eslint-enable */
     try {
       /* eslint-disable no-undef, no-console */
-      const basePath = __basedir;
-      const filepath = path.join(basePath, 'access.log');
+      const filepath = path.join(basedir, 'access.log');
 
       fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
