@@ -31,8 +31,12 @@ const __dirname = path.resolve();
 global.basedir = __dirname;
 /* eslint-disable no-underscore-dangle, no-console */
 
+if (!fs.existsSync(path.join(__dirname, './logz/access.log'))) {
+  fs.mkdirSync('./dist/logz');
+}
+
 // create a write stream (in append mode)
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a+' });
+const accessLogStream = fs.createWriteStream(path.join(__dirname, './logz/access.log'), { flags: 'a+' });
 
 app.use(morgan(':method\t:url\t:status\t:response-time ms', { stream: accessLogStream }));
 
