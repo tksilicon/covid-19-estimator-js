@@ -54,7 +54,7 @@ export const estimatorXml = async (req, res, next) => {
  * @param {*} next
  */
 
-export const logs = async (req, res) => {
+export const logs = async (req, res, next) => {
   try {
     /* eslint-disable no-undef, no-console */
     const basePath = __basedir;
