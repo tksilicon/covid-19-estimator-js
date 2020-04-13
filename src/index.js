@@ -12,6 +12,7 @@ import swaggerDocument from './swagger.json';
 import { estimator, estimatorXml } from './controllers/estimator.controller.js';
 import { schemas, validateBody } from './validator.js';
 import LogController from './controllers/log.controller.js';
+import { logging } from './controllers/logging.controller.js';
 /* eslint-disable import/extensions, no-console */
 
 
