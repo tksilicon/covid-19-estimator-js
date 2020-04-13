@@ -53,12 +53,10 @@ export const estimatorXml = async (req, res, next) => {
  * @param {*} res
  * @param {*} next
  */
-/* eslint-disable */
-export const logs = async (req, res) => {
- 
-    /* eslint-disable no-undef, no-console */
-  
-    const resData = [];
+
+export const logs = async (req, res, next) => {
+   
+  const resData = [];
     const file = sf(path.join(__basedir, 'access.log'));
 
     file.sliceReverse().on('data', (data) => {
