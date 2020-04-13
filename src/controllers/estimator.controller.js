@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import xml2 from 'xml2js';
+import url from 'url';
 import covid19ImpactEstimator from '../estimator.js';
 /* eslint-disable import/extensions, no-console */
 
@@ -23,8 +24,13 @@ class EstimatorController {
     /* eslint-enable */
     try {
       const days = covid19ImpactEstimator(req.body);
+      const requrl = url.format({
+        protocol: req.protocol,
+        host: req.get('host'),
+        pathname: req.originalUrl
+      });
 
-      if (Object.keys(req.params).length !== 0 && req.params.responseType === 'xml') {
+      if (requrl.indexOf('xml') !== -1) {
         const builder = new xml2.Builder({
           renderOpts: { pretty: true }
         });
@@ -33,13 +39,13 @@ class EstimatorController {
         return res.send(builder.buildObject(xml));
       }
 
-      if (req.params.responseType === 'weeks') {
+      if (requrl.indexOf('weeks') !== -1) {
         const weeks = covid19ImpactEstimator(req.body);
         return res.status(200).json({
           weeks
         });
       }
-      if (req.params.responseType === 'months') {
+      if (requrl.indexOf('months') !== -1) {
         const months = covid19ImpactEstimator(req.body);
         return res.status(200).json({
           months
