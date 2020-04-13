@@ -1,5 +1,4 @@
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import fs from 'fs';
 import morgan from 'morgan';
 import path from 'path';
@@ -11,7 +10,9 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 /* eslint-disable import/extensions, no-console */
 import EstimatorController from './controllers/estimator.controller.js';
+import { schemas, validateBody } from './validator.js';
 /* eslint-disable import/extensions, no-console */
+
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(compression());
 dotenv.config();
 app.use(helmet());
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // app.options('*', cors());
 
 /* eslint-disable no-underscore-dangle, no-console */
@@ -32,16 +35,11 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 // setup the logger
 app.use(morgan(':method :url :status :response-time ms', { stream: accessLogStream }));
 
-// support parsing of application/json type post data
-app.use(bodyParser.json());
 
-// support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.post('/api/v1/on-covid-19/', EstimatorController.estimator);
+app.post('/api/v1/on-covid-19/', validateBody(schemas.input), EstimatorController.estimator);
 app.get('/api/v1/on-covid-19/logs', EstimatorController.logs);
-app.post('/api/v1/on-covid-19/json', EstimatorController.estimator);
-app.post('/api/v1/on-covid-19/xml', EstimatorController.estimatorXml);
+app.post('/api/v1/on-covid-19/json', validateBody(schemas.input), EstimatorController.estimator);
+app.post('/api/v1/on-covid-19/xml', validateBody(schemas.input), EstimatorController.estimatorXml);
 // app.post('/api/v1/on-covid-19/:responseType', EstimatorController.estimator); // for heroku
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

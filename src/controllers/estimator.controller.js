@@ -66,7 +66,7 @@ class EstimatorController {
 
       fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) throw err;
-        res.status(200).type('text/plain').send(data);
+        return res.status(200).type('text/plain').send(data);
       });
     } catch (error) {
       return next(error);
