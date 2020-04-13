@@ -59,12 +59,10 @@ export const logs = async (req, res, next) => {
     /* eslint-disable no-undef, no-console */
     const basePath = __basedir;
     const filepath = path.join(basePath, 'access.log');
-    const logData = [];
-    fs.readFile(filepath, 'utf8', (err, data) => {
+    const datafs = fs.readFile(filepath, 'utf8', (err) => {
       if (err) throw err;
-      logData.push(data.toString()); //
     });
-    return res.type('text/plain').send(data);
+    return res.type('text/plain').send(datafs);
   } catch (error) {
     return next(error);
   }
